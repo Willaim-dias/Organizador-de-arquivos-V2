@@ -14,12 +14,14 @@ import javafx.stage.Stage;
 import model.entities.Document;
 import model.service.DocumentService;
 import view.util.PdfTools;
+import view.util.Tools;
 
 public class AddFileController implements Initializable{
 
     private File file = null;
     private DocumentService service;
     private Stage stage;
+    private byte[] fileByte;
     
     @FXML
     private ComboBox<String> cbFileCategories;
@@ -37,6 +39,10 @@ public class AddFileController implements Initializable{
         this.stage = stage;
     }
     
+    public void setDocumentService(DocumentService service) {
+        this.service = service;
+    }
+    
     public void onBtLoadFile() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Selecionar arquivo");
@@ -45,6 +51,7 @@ public class AddFileController implements Initializable{
         fileChooser.getExtensionFilters().add(filter);
         
         file = fileChooser.showOpenDialog(stage);
+        fileByte = PdfTools.convertToByte(file);
         labelAlert.setText("Arquivo carregado");
     }
     
@@ -55,13 +62,20 @@ public class AddFileController implements Initializable{
             String title = txtFileTitle.getText().toLowerCase();
             String categories = cbFileCategories.getValue();
             String description = txtaFileDescription.getText().toLowerCase();
-            Document obj = new Document(null, title, categories, description, PdfTools.convertToByte(file));
+            Document obj = new Document(null, title, categories, description, fileByte);
             service.saveOrUpdate(obj);
         }
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        addCategoryComboBox();
     }  
+    
+    private void addCategoryComboBox() {
+        cbFileCategories.getItems().clear();
+        for (String category : Tools.readListCategory()) {
+            cbFileCategories.getItems().add(category);
+        }
+    }
 }

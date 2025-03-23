@@ -31,7 +31,7 @@ public class DocumentJDBC implements DocumentDao {
             
             st.execute();
         } catch (SQLException e) {
-            System.err.println("Error: "+e);
+            System.err.println("Error JDBC: "+e);
         } finally {
             Db.closeStatement(st);
         }
@@ -68,7 +68,7 @@ public class DocumentJDBC implements DocumentDao {
             }
             return objList;
         } catch (SQLException e) {
-            System.err.println("Error: "+e);
+            System.err.println("Error JDBC: "+e);
         } finally {
             Db.closeResultSet(rs);
             Db.closeStatement(st);

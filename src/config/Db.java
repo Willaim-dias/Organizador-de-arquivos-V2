@@ -18,16 +18,15 @@ public class Db {
             if (conn == null) {
                 try {
                     conn = DriverManager.getConnection("jdbc:sqlite:arquivos.sqlite");
-                } catch (SQLException ex) {
-                    
+                    return conn;
+                } catch (SQLException e) {
+                    System.err.println("Error the connection: "+e);
                 }
             } else {
                 return conn;
             }
-        } else {
-            
         }
-        return null;   
+           return null;  
     }
     
     public void closeConnection() {

@@ -8,10 +8,6 @@ import java.io.IOException;
 public class PdfTools {
 
     public static byte[] convertToByte(File file) {
-        if (!file.exists()) {
-
-        }
-
         try {
             FileInputStream fis = new FileInputStream(file);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -24,7 +20,7 @@ public class PdfTools {
             }
             return baos.toByteArray();
         } catch (IOException e) {
-            System.err.println("Error: " + e);
+            System.err.println("Error pdfTools: " + e);
             return null;
         }
 

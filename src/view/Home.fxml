@@ -36,9 +36,9 @@
       <TableView fx:id="tableFiles" layoutX="15.0" layoutY="174.0" opacity="0.8" prefHeight="520.0" prefWidth="570.0">
         <columns>
           <TableColumn fx:id="columnId" prefWidth="55.0" text="Id" />
-          <TableColumn fx:id="columnName" prefWidth="160.0" text="Nome" />
+          <TableColumn fx:id="columnTitle" prefWidth="160.0" text="Nome" />
             <TableColumn fx:id="columnCategory" prefWidth="160.0" text="Categoria" />
-            <TableColumn prefWidth="75.0" />
+            <TableColumn fx:id="columnBtOpen" prefWidth="75.0" />
             <TableColumn fx:id="columnBtView" prefWidth="119.0" />
         </columns>
       </TableView>
@@ -75,7 +75,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Button layoutX="14.0" layoutY="3.0" mnemonicParsing="false" text="Adicionar novo arquivo">
+            <Button layoutX="14.0" layoutY="3.0" mnemonicParsing="false" onAction="#showWindowSave" text="Adicionar novo arquivo">
                <font>
                   <Font size="16.0" />
                </font>

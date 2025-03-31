@@ -7,22 +7,29 @@ public class Document {
     private String category;
     private String description;
     private byte[] file;
+    private Integer numberPages;
+    private Double fileSize;
     
     public Document() {
     }
 
-    public Document(Integer id, String title, String category, String description, byte[] file) {
+    public Document(Integer id, String title, String category, String description, byte[] file, Integer numberPages, Double fileSize) {
         this.id = id;
         this.title = title;
         this.category = category;
         this.description = description;
         this.file = file;
+        this.numberPages = numberPages;
+        this.fileSize = fileSize;
     }
     
-    public Document(Integer id, String title, String category) {
+    public Document(Integer id, String title, String category, String description, Integer numberPages, Double fileSize) {
         this.id = id;
         this.title = title;
         this.category = category;
+        this.description = description;
+        this.numberPages = numberPages;
+        this.fileSize = fileSize;
     }
 
     public Integer getId() {
@@ -63,6 +70,22 @@ public class Document {
 
     public void setFile(byte[] file) {
         this.file = file;
+    }
+
+    public Integer getNumberPages() {
+        return numberPages;
+    }
+
+    public void setNumberPages(Integer numberPages) {
+        this.numberPages = numberPages;
+    }
+
+    public Double getFileSize() {
+        return fileSize;
+    }
+
+    public void setFileSize(Double fileSize) {
+        this.fileSize = fileSize;
     }
     
 }

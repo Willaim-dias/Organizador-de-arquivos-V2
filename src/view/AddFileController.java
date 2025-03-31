@@ -2,7 +2,10 @@ package view;
 
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
@@ -13,15 +16,20 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.entities.Document;
 import model.service.DocumentService;
+import view.listeners.DataChangeListener;
 import view.util.PdfTools;
 import view.util.Tools;
 
 public class AddFileController implements Initializable{
 
+    private final List<DataChangeListener> DataChangeListeners = new ArrayList<>();
+    
     private File file = null;
     private DocumentService service;
     private Stage stage;
     private byte[] fileByte;
+    private double fileSize;
+    private int pageCounter;
     
     @FXML
     private ComboBox<String> cbFileCategories;
@@ -51,19 +59,23 @@ public class AddFileController implements Initializable{
         fileChooser.getExtensionFilters().add(filter);
         
         file = fileChooser.showOpenDialog(stage);
+        fileSize = file.length();
         fileByte = PdfTools.convertToByte(file);
+        pageCounter = PdfTools.getPageCounter(file);
         labelAlert.setText("Arquivo carregado");
     }
     
-    public void onBtSave() { 
+    public void onBtSave(ActionEvent event) { 
         if (txtFileTitle.getText().equals("") || file == null || cbFileCategories.getValue() == null) {
             labelAlert.setText("Erro ao Salvar.");
         } else {        
             String title = txtFileTitle.getText().toLowerCase();
             String categories = cbFileCategories.getValue();
             String description = txtaFileDescription.getText().toLowerCase();
-            Document obj = new Document(null, title, categories, description, fileByte);
+            Document obj = new Document(null, title, categories, description, fileByte,pageCounter,fileSize);
             service.saveOrUpdate(obj);
+            notifyDataChangeListeners();
+            Tools.currentStage(event).close();
         }
     }
     
@@ -76,6 +88,12 @@ public class AddFileController implements Initializable{
         cbFileCategories.getItems().clear();
         for (String category : Tools.readListCategory()) {
             cbFileCategories.getItems().add(category);
+        }
+    }
+    
+    private void notifyDataChangeListeners() {
+        for (DataChangeListener listener : DataChangeListeners) {
+            listener.onDataChanged();
         }
     }
 }

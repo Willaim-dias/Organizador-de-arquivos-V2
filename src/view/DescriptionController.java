@@ -28,6 +28,7 @@ public class DescriptionController implements Initializable {
     
     public void setDocument(Document document) {
         this.document = document;
+        addData();
     }
     
     @Override
@@ -35,4 +36,11 @@ public class DescriptionController implements Initializable {
         
     }    
     
+    private void addData() {
+        labelFileName.setText(document.getTitle());
+        labelCategory.setText(document.getCategory());
+        labelPageNumber.setText(Integer.toString(document.getNumberPages()));
+        labelFileSize.setText(Double.toString(document.getFileSize()));
+        labelFileDescription.setText(document.getDescription());
+    }
 }

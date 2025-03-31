@@ -27,7 +27,7 @@
         <menus>
           <Menu mnemonicParsing="false" text="Opçoes">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#WindowSettings" text="Configurações" />
+              <MenuItem mnemonicParsing="false" onAction="#onBtWindowSettings" text="Configurações" />
                   <MenuItem mnemonicParsing="false" text="Sobre" />
             </items>
           </Menu>
@@ -36,10 +36,10 @@
       <TableView fx:id="tableFiles" layoutX="15.0" layoutY="174.0" opacity="0.8" prefHeight="520.0" prefWidth="570.0">
         <columns>
           <TableColumn fx:id="columnId" prefWidth="55.0" text="Id" />
-          <TableColumn fx:id="columnTitle" prefWidth="160.0" text="Nome" />
-            <TableColumn fx:id="columnCategory" prefWidth="160.0" text="Categoria" />
-            <TableColumn fx:id="columnBtOpen" prefWidth="75.0" />
-            <TableColumn fx:id="columnBtView" prefWidth="119.0" />
+          <TableColumn fx:id="columnTitle" prefWidth="250.0" text="Nome" />
+            <TableColumn fx:id="columnCategory" prefWidth="165.0" text="Categoria" />
+            <TableColumn fx:id="columnBtView" editable="false" maxWidth="40.0" minWidth="40.0" prefWidth="40.0" resizable="false" />
+            <TableColumn fx:id="columnBtRemover" maxWidth="40.0" minWidth="40.0" prefWidth="40.0" resizable="false" />
         </columns>
       </TableView>
       <HBox alignment="CENTER_LEFT" layoutX="15.0" layoutY="117.0" prefHeight="50.0" prefWidth="570.0">
@@ -52,8 +52,15 @@
                <font>
                   <Font size="16.0" />
                </font>
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" smooth="false">
+                     <image>
+                        <Image url="@imgs/icons/search.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="120.0" text="Atualizar">
+            <Button mnemonicParsing="false" onAction="#onBtupdateTable" prefHeight="32.0" prefWidth="120.0" text="Atualizar">
                <HBox.margin>
                   <Insets left="5.0" />
                </HBox.margin>
@@ -75,7 +82,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Button layoutX="14.0" layoutY="3.0" mnemonicParsing="false" onAction="#WindowSave" text="Adicionar novo arquivo">
+            <Button layoutX="14.0" layoutY="3.0" mnemonicParsing="false" onAction="#onBtWindowSave" text="Adicionar novo arquivo">
                <font>
                   <Font size="16.0" />
                </font>

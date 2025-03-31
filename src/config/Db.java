@@ -25,6 +25,8 @@ public class Db {
             } else {
                 return conn;
             }
+        } else {
+            System.exit(0);
         }
            return null;  
     }

@@ -23,11 +23,13 @@ public class DocumentJDBC implements DocumentDao {
     public void insert(Document obj) {
         PreparedStatement st = null;
         try {
-            st = conn.prepareStatement("INSERT INTO files(title, category, description, file) VALUES (?, ?, ?, ?)");
+            st = conn.prepareStatement("INSERT INTO files(title, category, description, file, numberPages, fileSize) VALUES (?, ?, ?, ?, ?, ?)");
             st.setString(1, obj.getTitle());
             st.setString(2, obj.getCategory());
             st.setString(3, obj.getDescription());
             st.setBytes(4, obj.getFile());
+            st.setInt(5, obj.getNumberPages());
+            st.setDouble(6, obj.getFileSize());
             
             st.execute();
         } catch (SQLException e) {
@@ -44,7 +46,17 @@ public class DocumentJDBC implements DocumentDao {
 
     @Override
     public void deleteById(Integer id) {
+        PreparedStatement st = null;
         
+        try {
+            st = conn.prepareStatement("DELETE FROM files WHERE id = ?");
+            st.setInt(1, id);
+            st.execute();
+        } catch (SQLException e) {
+            System.err.println("Error JDBC: "+e);
+        } finally {
+            Db.closeStatement(st);
+        };
     }
 
     @Override
@@ -58,12 +70,12 @@ public class DocumentJDBC implements DocumentDao {
         ResultSet rs = null;
         
         try {
-            st = conn.prepareStatement("SELECT id, title, category FROM files");
+            st = conn.prepareStatement("SELECT id, title, category, description, numberPages, fileSize FROM files");
             
             rs =  st.executeQuery();
             List<Document> objList = new ArrayList<>();
             while(rs.next()) {
-                Document obj = new Document(rs.getInt("id"), rs.getString("title"), rs.getString("category"));
+                Document obj = new Document(rs.getInt("id"), rs.getString("title"), rs.getString("category"),rs.getString("description"), rs.getInt("numberPages"), rs.getDouble("fileSize"));
                 objList.add(obj);
             }
             return objList;

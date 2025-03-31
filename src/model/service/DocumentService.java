@@ -21,4 +21,8 @@ public class DocumentService {
         }
     }
     
+    public void deleteById(int id) {
+        dao.deleteById(id);
+    }
+    
 }

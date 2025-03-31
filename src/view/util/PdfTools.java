@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import org.apache.pdfbox.pdmodel.PDDocument;
 
 public class PdfTools {
 
@@ -23,7 +24,18 @@ public class PdfTools {
             System.err.println("Error pdfTools: " + e);
             return null;
         }
-
     }
 
+    
+    public static int getPageCounter(File file) {
+        try {
+            PDDocument document = PDDocument.load(file);
+            int counter = document.getNumberOfPages();
+            document.close();
+            return counter;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return 0;
+        } 
+    }
 }

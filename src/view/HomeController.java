@@ -24,6 +24,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.entities.Document;
@@ -69,6 +70,12 @@ public class HomeController extends DataChangeListener implements Initializable 
     private Label labelNumberPage;
     
     @FXML
+    private Label labelFileSize;
+    
+    @FXML
+    private Label labelDescription;
+    
+    @FXML
     private TextField txtSearch;
 
     private ObservableList<Document> obsList;
@@ -90,7 +97,7 @@ public class HomeController extends DataChangeListener implements Initializable 
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.showAndWait();
         } catch (IOException e) {
-            labelError.setText("Ocorreu um erro inesperado.");
+            Alert.showAlert("Erro", "", e.toString(), javafx.scene.control.Alert.AlertType.WARNING);
         }
     }
 
@@ -107,7 +114,7 @@ public class HomeController extends DataChangeListener implements Initializable 
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.showAndWait();
         } catch (IOException e) {
-            labelError.setText("Ocorreu um erro inesperado.");
+            Alert.showAlert("Erro", "", e.toString(), javafx.scene.control.Alert.AlertType.WARNING);
         }
     }
 
@@ -119,6 +126,14 @@ public class HomeController extends DataChangeListener implements Initializable 
     public void initialize(URL url, ResourceBundle rb) {
         initializerNodes();
         stage = Main.getStage();
+        
+        tableFiles.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, selection) -> {
+            if (selection != null) {
+                labelNumberPage.setText("Numero de Paginas: "+selection.getNumberPages());
+                labelFileSize.setText("Tamanho do Arquivo: "+Tools.convertionSize(selection.getFileSize()));
+                labelDescription.setText(""+selection.getDescription());
+            }
+        });
     }
 
     private void initializerNodes() {
@@ -164,7 +179,7 @@ public class HomeController extends DataChangeListener implements Initializable 
                 }
 
                 setGraphic(button);
-                button.setOnAction(event -> createDialogFormFile(obj, "/view/ShowFile.fxml", Tools.currentStage(event)));
+                button.setOnAction(event -> createDialogFormFile(obj));
             }
         });
     }
@@ -229,23 +244,23 @@ public class HomeController extends DataChangeListener implements Initializable 
         });
     }
 
-    private void createDialogFormFile(Document obj, String absoluteName, Stage parentStage) {
+    private void createDialogFormFile(Document obj) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ShowFile.fxml"));
             AnchorPane anchorPane = loader.load();
 
             ShowFileController controller = loader.getController();
-            controller.setDocument(obj);
+            controller.setDocument(obj,service.findByFileId(obj.getId()));
             
             Stage dialogStage = new Stage();
             dialogStage.setTitle(obj.getTitle());
             dialogStage.setScene(new Scene(anchorPane));
-            dialogStage.setResizable(false);
-            dialogStage.initOwner(parentStage);
+            dialogStage.setResizable(true);
+            dialogStage.initOwner(stage);
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.showAndWait();
         } catch (IOException e) {
-             throw new RuntimeException("Unespected Error");
+            Alert.showAlert("Erro", "", e.toString(), javafx.scene.control.Alert.AlertType.WARNING);
         }
     }
 

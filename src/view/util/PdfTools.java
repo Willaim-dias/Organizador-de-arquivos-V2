@@ -1,5 +1,6 @@
 package view.util;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -8,6 +9,7 @@ import java.io.IOException;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.rendering.PDFRenderer;
 
 public class PdfTools {
 
@@ -49,6 +51,17 @@ public class PdfTools {
         return fileChooser.showOpenDialog(stage);
     }
     
+    public static PDFRenderer rendererPDF(byte[] pdfByte) {
+        try {
+            PDDocument document = null;
+            document = PDDocument.load(new ByteArrayInputStream(pdfByte));
+            return new PDFRenderer(document);
+        } catch (IOException e) {
+            System.out.println("Error function renderPDF: "+e);
+        }
+        return null;
+    }
+    
     public static void downloadFile(byte[] pdf,String name,Stage stage) {
         try {
             FileChooser fileChooser = new FileChooser();
@@ -60,8 +73,9 @@ public class PdfTools {
                 FileOutputStream fos = new FileOutputStream(file);
                 fos.write(pdf);
                 fos.close();
+                Alert.showAlert("Info","", "Salvo com Sucesso!", javafx.scene.control.Alert.AlertType.INFORMATION);
             }
-            Alert.showAlert("Info","", "Salvo com Sucesso!", javafx.scene.control.Alert.AlertType.INFORMATION);
+            
         } catch (IOException e) {
             throw new RuntimeException("Erro ao tentar realizar o download do arquivo. " + e);
         }

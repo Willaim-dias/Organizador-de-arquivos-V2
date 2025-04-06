@@ -28,7 +28,7 @@ public class Db {
         } else {
             System.exit(0);
         }
-           return null;  
+        return null;
     }
     
     public void closeConnection() {

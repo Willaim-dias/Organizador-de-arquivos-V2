@@ -88,7 +88,22 @@
       </Label>
       <Pane layoutX="15.0" layoutY="84.0" prefHeight="120.0" prefWidth="670.0">
          <children>
-            <Label fx:id="labelNumberPage" layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="160.0" textFill="WHITE">
+            <Label fx:id="labelNumberPage" layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="185.0" text="Numero de Paginas:" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelFileSize" layoutX="321.0" layoutY="14.0" prefHeight="25.0" prefWidth="250.0" text="Tamanho do Arquivo:" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="71.0" text="Descrição:" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelDescription" layoutX="93.0" layoutY="52.0" prefHeight="62.0" prefWidth="565.0" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
                <font>
                   <Font size="16.0" />
                </font>

@@ -62,6 +62,7 @@ public class AddFileController implements Initializable{
         if (txtFileTitle.getText().equals("") || file == null || cbFileCategories.getValue() == null) {
             labelAlert.setText("Erro ao Salvar.");
         } else {        
+            
             String title = txtFileTitle.getText().toLowerCase();
             String categories = cbFileCategories.getValue();
             String description = txtaFileDescription.getText().toLowerCase();

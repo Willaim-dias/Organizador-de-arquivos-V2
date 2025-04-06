@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Scanner;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class Tools {
@@ -54,5 +53,15 @@ public class Tools {
 
     public static Stage currentStage(ActionEvent event) {
         return (Stage) ((Node) event.getSource()).getScene().getWindow();
+    }
+
+    public static String convertionSize(Double bytes) {
+        if (bytes >= 1024 * 1024) {
+            return String.format("%.2f MB", (double) bytes / (1024 * 1024));
+        } else if (bytes >= 1024) {
+            return String.format("%.2f KB", (double) bytes / 1024);
+        } else {
+            return bytes + " Bytes";
+        }
     }
 }

@@ -3,7 +3,10 @@ package view.util;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import org.apache.pdfbox.pdmodel.PDDocument;
 
 public class PdfTools {
@@ -34,8 +37,33 @@ public class PdfTools {
             document.close();
             return counter;
         } catch (IOException e) {
-            e.printStackTrace();
-            return 0;
+            throw new RuntimeException("Erro ao carregar o numero de paginas.");
         } 
+    }
+    
+    public static File LoadFile(Stage stage) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Selecionar arquivo");
+        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Arquivos PDF", "*.pdf");
+        fileChooser.getExtensionFilters().add(filter);
+        return fileChooser.showOpenDialog(stage);
+    }
+    
+    public static void downloadFile(byte[] pdf,String name,Stage stage) {
+        try {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Salvar arquivo");
+            fileChooser.setInitialFileName(name+".pdf");
+            File file = fileChooser.showSaveDialog(stage);
+            
+            if (file != null) {
+                FileOutputStream fos = new FileOutputStream(file);
+                fos.write(pdf);
+                fos.close();
+            }
+            Alert.showAlert("Info","", "Salvo com Sucesso!", javafx.scene.control.Alert.AlertType.INFORMATION);
+        } catch (IOException e) {
+            throw new RuntimeException("Erro ao tentar realizar o download do arquivo. " + e);
+        }
     }
 }

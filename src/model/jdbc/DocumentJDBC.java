@@ -60,12 +60,27 @@ public class DocumentJDBC implements DocumentDao {
     }
 
     @Override
-    public Document findById(Integer id) {
+    public byte[] findByFileId(Integer id) {
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        
+        try {
+            st = conn.prepareStatement("SELECT file FROM files WHERE id = ?");
+            st.setInt(1, id);
+            
+            rs =  st.executeQuery();
+            return rs.getBytes("file");
+        } catch (SQLException e) {
+            System.err.println("Error JDBC: "+e);
+        } finally {
+            Db.closeResultSet(rs);
+            Db.closeStatement(st);
+        }
         return null;
     }
 
     @Override
-    public List<Document> findAll() {
+    public List<Document> findAllFileDate() {
         PreparedStatement st = null;
         ResultSet rs = null;
         

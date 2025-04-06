@@ -8,6 +8,6 @@ public interface DocumentDao {
     void insert(Document obj);
     void update(Document obj);
     void deleteById(Integer id);
-    Document findById(Integer id);
-    List<Document> findAll();
+    byte[] findByFileId(Integer id);
+    List<Document> findAllFileDate();
 }

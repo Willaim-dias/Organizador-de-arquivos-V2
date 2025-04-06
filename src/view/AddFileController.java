@@ -12,7 +12,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.entities.Document;
 import model.service.DocumentService;
@@ -51,14 +50,8 @@ public class AddFileController implements Initializable{
         this.service = service;
     }
     
-    public void onBtLoadFile() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Selecionar arquivo");
-        
-        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Arquivos PDF", "*.pdf");
-        fileChooser.getExtensionFilters().add(filter);
-        
-        file = fileChooser.showOpenDialog(stage);
+    public void onBtLoadFile() {  
+        file = PdfTools.LoadFile(stage);
         fileSize = file.length();
         fileByte = PdfTools.convertToByte(file);
         pageCounter = PdfTools.getPageCounter(file);
@@ -75,7 +68,6 @@ public class AddFileController implements Initializable{
             Document obj = new Document(null, title, categories, description, fileByte,pageCounter,fileSize);
             service.saveOrUpdate(obj);
             notifyDataChangeListeners();
-            Tools.currentStage(event).close();
         }
     }
     

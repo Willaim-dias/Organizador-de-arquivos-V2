@@ -9,8 +9,12 @@ public class DocumentService {
     
     private DocumentDao dao = DaoFactory.createDocumentDao();
     
-    public List<Document> findAll() {
-        return dao.findAll();
+    public byte[] findByFileId(int id) {
+        return dao.findByFileId(id);
+    }
+    
+    public List<Document> findAllFileDate() {
+        return dao.findAllFileDate();
     }
     
     public void saveOrUpdate(Document obj) {

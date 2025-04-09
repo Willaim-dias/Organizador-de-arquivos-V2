@@ -56,12 +56,7 @@ public class ShowFileController implements Initializable {
     }
 
     private void initializerNodes() {
-        showPage.setPreserveRatio(true);
-        showPage.setSmooth(true);
-        showPage.setCache(true);
-        scrollPane.setPreserveRatio(true);
-        scrollPane.setSmooth(true);
-        scrollPane.setCache(true);
+        
     }
     
     private void showFile() {
@@ -69,8 +64,11 @@ public class ShowFileController implements Initializable {
             if (page >= 0 && page <= document.getNumberPages()) {
                 BufferedImage bi = renderer.renderImageWithDPI(page, 250);
                 Image image = SwingFXUtils.toFXImage(bi, null);
-                labelPageNumber.setText(""+page+"/"+document.getNumberPages());
+                labelPageNumber.setText(""+(page+1)+"/"+document.getNumberPages());
                 showPage.setImage(image);
+                
+                showPage.setFitWidth(800);
+                showPage.setFitHeight(1200);
             }
         } catch (IOException e) {
             System.out.println("showfile Error: " + e);

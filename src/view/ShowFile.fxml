@@ -10,20 +10,19 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="700.0" minWidth="1000.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ShowFileController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="700.0" minWidth="845.0" prefHeight="700.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ShowFileController">
    <children>
-      <ImageView fx:id="scrollPane" fitHeight="700.0" fitWidth="1000.0" pickOnBounds="true">
+      <ImageView fx:id="scrollPane" fitHeight="700.0" fitWidth="850.0" pickOnBounds="true">
          <image>
             <Image url="@imgs/old-books.jpg" />
          </image>
       </ImageView>
-      <ScrollPane layoutX="14.0" layoutY="14.0" prefHeight="600.0" prefWidth="975.0">
+      <ScrollPane layoutX="14.0" layoutY="14.0" prefHeight="600.0" prefWidth="825.0">
          <content>
-            <ImageView fx:id="showPage" fitHeight="600.0" fitWidth="976.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="showPage" fitHeight="596.0" fitWidth="815.0" pickOnBounds="true" />
          </content>
       </ScrollPane>
-      <HBox alignment="CENTER" layoutX="237.0" layoutY="630.0" prefHeight="56.0" prefWidth="530.0">
+      <HBox alignment="CENTER" layoutX="137.0" layoutY="630.0" prefHeight="56.0" prefWidth="570.0">
          <children>
             <Button mnemonicParsing="false" onAction="#onBtShowFile" prefHeight="30.0" prefWidth="150.0" text="Carregar">
                <font>

@@ -24,7 +24,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.entities.Document;
@@ -91,6 +90,7 @@ public class HomeController extends DataChangeListener implements Initializable 
 
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Adicionar novo arquivo");
+            dialogStage.getIcons().add(new Image(getClass().getResourceAsStream("/view/imgs/icons/researchBooks.png")));
             dialogStage.setScene(new Scene(anchorPane));
             dialogStage.setResizable(false);
             dialogStage.initOwner(stage);
@@ -108,6 +108,7 @@ public class HomeController extends DataChangeListener implements Initializable 
 
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Configurações");
+            dialogStage.getIcons().add(new Image(getClass().getResourceAsStream("/view/imgs/icons/researchBooks.png")));
             dialogStage.setScene(new Scene(anchorPane));
             dialogStage.setResizable(false);
             dialogStage.initOwner(stage);
@@ -255,8 +256,8 @@ public class HomeController extends DataChangeListener implements Initializable 
             Stage dialogStage = new Stage();
             dialogStage.setTitle(obj.getTitle());
             dialogStage.setScene(new Scene(anchorPane));
-            dialogStage.setResizable(true);
-            dialogStage.initOwner(stage);
+            dialogStage.setResizable(false);
+            dialogStage.getIcons().add(new Image(getClass().getResourceAsStream("/view/imgs/icons/researchBooks.png")));
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.showAndWait();
         } catch (IOException e) {

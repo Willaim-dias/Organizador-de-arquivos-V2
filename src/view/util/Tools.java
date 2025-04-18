@@ -39,7 +39,7 @@ public class Tools {
     public static List<String> readListCategory() {
         try {
             Scanner sc = new Scanner(file);
-            List listCategory = new ArrayList();
+            List<String> listCategory = new ArrayList<>();
 
             while (sc.hasNextLine()) {
                 listCategory.add(sc.nextLine());

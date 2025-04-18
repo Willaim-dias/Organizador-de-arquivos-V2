@@ -36,7 +36,7 @@
       <TableView fx:id="tableFiles" layoutX="15.0" layoutY="267.0" opacity="0.8" prefHeight="520.0" prefWidth="670.0">
         <columns>
           <TableColumn fx:id="columnId" prefWidth="60.0" text="Id" />
-          <TableColumn fx:id="columnTitle" prefWidth="245.0" text="Nome" />
+          <TableColumn fx:id="columnName" prefWidth="245.0" text="Nome" />
             <TableColumn fx:id="columnCategory" prefWidth="225.0" text="Categoria" />
             <TableColumn fx:id="columnBtView" editable="false" maxWidth="40.0" minWidth="40.0" prefWidth="40.0" resizable="false" />
             <TableColumn fx:id="columnBtDownload" maxWidth="40.0" minWidth="40.0" prefWidth="40.0" />
@@ -86,14 +86,14 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Pane layoutX="15.0" layoutY="84.0" prefHeight="120.0" prefWidth="670.0">
+      <Pane layoutX="15.0" layoutY="84.0" prefHeight="120.0" prefWidth="670.0" styleClass="backgroundPanel">
          <children>
             <Label fx:id="labelNumberPage" layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="185.0" text="Numero de Paginas:" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label fx:id="labelFileSize" layoutX="321.0" layoutY="14.0" prefHeight="25.0" prefWidth="250.0" text="Tamanho do Arquivo:" textFill="WHITE">
+            <Label fx:id="labelFileSize" layoutX="280.0" layoutY="14.0" prefHeight="25.0" prefWidth="250.0" text="Tamanho do Arquivo:" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -108,6 +108,7 @@
                   <Font size="16.0" />
                </font>
             </Label>
+            <Button layoutX="619.0" layoutY="14.0" mnemonicParsing="false" onAction="#onBtWindowsEdit" text="Edit" />
          </children>
       </Pane>
    </children>

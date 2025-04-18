@@ -37,6 +37,7 @@ public class HomeController extends DataChangeListener implements Initializable 
 
     private final DocumentService service = new DocumentService();
     private Stage stage;
+    private Document obj = null;
 
     @FXML
     private TableView<Document> tableFiles;
@@ -45,7 +46,7 @@ public class HomeController extends DataChangeListener implements Initializable 
     private TableColumn<Document, Integer> columnId;
 
     @FXML
-    private TableColumn<Document, String> columnTitle;
+    private TableColumn<Document, String> columnName;
 
     @FXML
     private TableColumn<Document, String> columnCategory;
@@ -55,7 +56,7 @@ public class HomeController extends DataChangeListener implements Initializable 
 
     @FXML
     private TableColumn<Document, Document> columnBtDownload;
-    
+
     @FXML
     private TableColumn<Document, Document> columnBtRemover;
 
@@ -67,13 +68,13 @@ public class HomeController extends DataChangeListener implements Initializable 
 
     @FXML
     private Label labelNumberPage;
-    
+
     @FXML
     private Label labelFileSize;
-    
+
     @FXML
     private Label labelDescription;
-    
+
     @FXML
     private TextField txtSearch;
 
@@ -85,8 +86,9 @@ public class HomeController extends DataChangeListener implements Initializable 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("AddFile.fxml"));
             AnchorPane anchorPane = loader.load();
 
-            AddFileController controller = loader.getController();
-            controller.setDocumentService(service);
+            AddEditController controller = loader.getController();
+            controller.setDatas(service,null);
+            controller.subscriberDataChangeListener(this);
 
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Adicionar novo arquivo");
@@ -98,6 +100,31 @@ public class HomeController extends DataChangeListener implements Initializable 
             dialogStage.showAndWait();
         } catch (IOException e) {
             Alert.showAlert("Erro", "", e.toString(), javafx.scene.control.Alert.AlertType.WARNING);
+        }
+    }
+
+    public void onBtWindowsEdit() {
+        if (obj != null) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("EditDescription.fxml"));
+                AnchorPane anchorPane = loader.load();
+
+                AddEditController controller = loader.getController();
+                controller.setDatas(service,obj);
+                controller.subscriberDataChangeListener(this);
+                
+                Stage dialogStage = new Stage();
+                dialogStage.setTitle("Editar a arquivo");
+                dialogStage.getIcons().add(new Image(getClass().getResourceAsStream("/view/imgs/icons/researchBooks.png")));
+                dialogStage.setScene(new Scene(anchorPane));
+                dialogStage.setResizable(false);
+                dialogStage.initOwner(stage);
+                dialogStage.initModality(Modality.WINDOW_MODAL);
+                dialogStage.showAndWait();
+            } catch (IOException e) {
+                e.printStackTrace();
+                Alert.showAlert("Erro", "", e.toString(), javafx.scene.control.Alert.AlertType.WARNING);
+            }
         }
     }
 
@@ -122,24 +149,25 @@ public class HomeController extends DataChangeListener implements Initializable 
     public void onBtupdateTable() {
         addDataTable();
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         initializerNodes();
         stage = Main.getStage();
-        
+
         tableFiles.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, selection) -> {
             if (selection != null) {
-                labelNumberPage.setText("Numero de Paginas: "+selection.getNumberPages());
-                labelFileSize.setText("Tamanho do Arquivo: "+Tools.convertionSize(selection.getFileSize()));
-                labelDescription.setText(""+selection.getDescription());
+                labelNumberPage.setText("Numero de Paginas: " + selection.getNumberPages());
+                labelFileSize.setText("Tamanho do Arquivo: " + Tools.convertionSize(selection.getFileSize()));
+                labelDescription.setText("" + selection.getDescription());
+                obj = selection;
             }
         });
     }
 
     private void initializerNodes() {
         columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        columnTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+        columnName.setCellValueFactory(new PropertyValueFactory<>("name"));
         columnCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
         addDataTable();
     }
@@ -210,11 +238,11 @@ public class HomeController extends DataChangeListener implements Initializable 
                 }
 
                 setGraphic(button);
-                button.setOnAction((event) -> PdfTools.downloadFile(service.findByFileId(obj.getId()),obj.getTitle(),stage));
+                button.setOnAction((event) -> PdfTools.downloadFile(service.findByFileId(obj.getId()), obj.getName(), stage));
             }
         });
     }
-    
+
     private void initBtDelete() {
         columnBtRemover.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         columnBtRemover.setCellFactory(param -> new TableCell<Document, Document>() {
@@ -251,10 +279,10 @@ public class HomeController extends DataChangeListener implements Initializable 
             AnchorPane anchorPane = loader.load();
 
             ShowFileController controller = loader.getController();
-            controller.setDocument(obj,service.findByFileId(obj.getId()));
-            
+            controller.setDocument(obj, service.findByFileId(obj.getId()));
+
             Stage dialogStage = new Stage();
-            dialogStage.setTitle(obj.getTitle());
+            dialogStage.setTitle(obj.getName());
             dialogStage.setScene(new Scene(anchorPane));
             dialogStage.setResizable(false);
             dialogStage.getIcons().add(new Image(getClass().getResourceAsStream("/view/imgs/icons/researchBooks.png")));
@@ -276,7 +304,7 @@ public class HomeController extends DataChangeListener implements Initializable 
             addDataTable();
         }
     }
-    
+
     @Override
     public void onDataChanged() {
         addDataTable();

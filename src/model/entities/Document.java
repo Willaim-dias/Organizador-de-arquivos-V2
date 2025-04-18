@@ -3,7 +3,7 @@ package model.entities;
 public class Document {
     
     private Integer id;
-    private String title;
+    private String name;
     private String category;
     private String description;
     private byte[] file;
@@ -13,9 +13,9 @@ public class Document {
     public Document() {
     }
 
-    public Document(Integer id, String title, String category, String description, byte[] file, Integer numberPages, Double fileSize) {
+    public Document(Integer id, String name, String category, String description, byte[] file, Integer numberPages, Double fileSize) {
         this.id = id;
-        this.title = title;
+        this.name = name;
         this.category = category;
         this.description = description;
         this.file = file;
@@ -23,9 +23,9 @@ public class Document {
         this.fileSize = fileSize;
     }
     
-    public Document(Integer id, String title, String category, String description, Integer numberPages, Double fileSize) {
+    public Document(Integer id, String name, String category, String description, Integer numberPages, Double fileSize) {
         this.id = id;
-        this.title = title;
+        this.name = name;
         this.category = category;
         this.description = description;
         this.numberPages = numberPages;
@@ -40,12 +40,12 @@ public class Document {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String title) {
+        this.name = title;
     }
 
     public String getCategory() {

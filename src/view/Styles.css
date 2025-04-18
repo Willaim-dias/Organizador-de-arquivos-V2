@@ -6,3 +6,8 @@
     -fx-background-color: rgba(000,000,000,0.5);
     -fx-border-radius: 5px;
 }
+
+.borderDev {
+    -fx-border-color: red;
+    -fx-background-color: red;
+}

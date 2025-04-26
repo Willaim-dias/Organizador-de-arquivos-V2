@@ -28,8 +28,7 @@ public class Main extends Application {
             primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/view/imgs/icons/researchBooks.png")));
             primaryStage.show();
         } catch (IOException e) {
-            e.printStackTrace();
-           // System.out.println("Error main:");
+            System.out.println("Error main:");
         }
     }
     

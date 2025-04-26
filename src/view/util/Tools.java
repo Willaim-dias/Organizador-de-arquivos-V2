@@ -2,11 +2,10 @@ package view.util;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.nio.file.Files;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.stage.Stage;
@@ -28,7 +27,7 @@ public class Tools {
     public static void addCategory(String category) {
         try {
             PrintWriter pw = new PrintWriter(new FileWriter(file, true));
-
+            
             pw.println(category);
             pw.close();
         } catch (IOException e) {
@@ -36,15 +35,26 @@ public class Tools {
         }
     }
 
+    public static void removeCategory(String category) {
+        try {   
+            List<String> list = Files.readAllLines(file.toPath());
+            
+            for (int i = list.size() - 1; i >= 0; i--) {
+                if (category.equals(list.get(i))) {
+                   list.remove(i);
+                }
+            }
+            
+            Files.write(file.toPath(), list);
+        } catch (IOException e) {
+            System.out.println("Error: " + e);
+        }
+    }
+    
+    
     public static List<String> readListCategory() {
         try {
-            Scanner sc = new Scanner(file);
-            List<String> listCategory = new ArrayList<>();
-
-            while (sc.hasNextLine()) {
-                listCategory.add(sc.nextLine());
-            }
-            return listCategory;
+            return Files.readAllLines(file.toPath());
         } catch (IOException e) {
             System.err.println("Error: " + e);
         }

@@ -1,11 +1,14 @@
 package view;
 
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import view.util.Alert;
 import view.util.Tools;
 
 public class SettingsController implements Initializable {
@@ -32,6 +35,17 @@ public class SettingsController implements Initializable {
         }
     }
      
+    public void onBtRemoveCategory() {
+        if (!cbCategory.getValue().equals("Categorias")) {
+            Optional<ButtonType> result = Alert.showConfirmation("Confirmação", "Tem certeza de que deseja excluir?");
+            if (result.get() == ButtonType.OK) {
+                Tools.removeCategory(cbCategory.getValue());
+            }
+        } else {
+            Alert.showAlert("Info", "", "Selecione uma categoria.", javafx.scene.control.Alert.AlertType.INFORMATION);
+        }
+    }
+    
     private void addCategoryComboBox() {
         cbCategory.getItems().clear();
         for (String category : Tools.readListCategory()) {

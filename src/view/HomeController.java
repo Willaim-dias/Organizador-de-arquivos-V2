@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -207,6 +208,7 @@ public class HomeController extends DataChangeListener implements Initializable 
                     return;
                 }
 
+                setAlignment(Pos.CENTER);
                 setGraphic(button);
                 button.setOnAction(event -> createDialogFormFile(obj));
             }
@@ -237,6 +239,7 @@ public class HomeController extends DataChangeListener implements Initializable 
                     return;
                 }
 
+                setAlignment(Pos.CENTER);
                 setGraphic(button);
                 button.setOnAction((event) -> PdfTools.downloadFile(service.findByFileId(obj.getId()), obj.getName(), stage));
             }
@@ -267,6 +270,7 @@ public class HomeController extends DataChangeListener implements Initializable 
                     return;
                 }
 
+                setAlignment(Pos.CENTER);
                 setGraphic(button);
                 button.setOnAction(event -> removeEntity(obj));
             }
@@ -284,7 +288,6 @@ public class HomeController extends DataChangeListener implements Initializable 
             Stage dialogStage = new Stage();
             dialogStage.setTitle(obj.getName());
             dialogStage.setScene(new Scene(anchorPane));
-            dialogStage.setResizable(false);
             dialogStage.getIcons().add(new Image(getClass().getResourceAsStream("/view/imgs/icons/researchBooks.png")));
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.showAndWait();

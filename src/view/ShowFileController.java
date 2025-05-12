@@ -5,8 +5,10 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import model.entities.Document;
 import view.util.PdfTools;
 
@@ -17,11 +19,20 @@ public class ShowFileController implements Initializable {
     private byte[] pdfByte;
     
     @FXML
-    private Label labelPageNumber;
+    private AnchorPane rootPanel;
 
     @FXML
-    private ImageView showPage;
-
+    private ImageView backgroundImage;
+    
+    @FXML
+    private ScrollPane scrollPaneView;
+    
+    @FXML
+    private ImageView showPage;  
+    
+    @FXML
+    private Label labelPageNumber;
+ 
     public void setDocument(Document document, byte[] pdfByte) {
         this.document = document;
         this.pdfByte = pdfByte;
@@ -57,15 +68,20 @@ public class ShowFileController implements Initializable {
     private void showFile() {
         if (page >= 0 && page < document.getNumberPages()) {
             Image image = PdfTools.renderFirstPage(page, pdfByte);
-            labelPageNumber.setText(""+(page+1)+"/"+document.getNumberPages());
             showPage.setImage(image);
+            showPage.setPreserveRatio(false);
             
-            showPage.setFitWidth(800);
-            showPage.setFitHeight(1200);
+            labelPageNumber.setText(""+(page+1)+"/"+document.getNumberPages());
+     
+            showPage.setFitHeight(800);
         }
     }
 
     private void initializerNodes() {
-        
+        Image image = new Image("view/imgs/old-books.jpg");
+        backgroundImage.setImage(image);
+        backgroundImage.setPreserveRatio(false);
+        backgroundImage.fitWidthProperty().bind(rootPanel.widthProperty());
+        backgroundImage.fitHeightProperty().bind(rootPanel.heightProperty());
     }
 }

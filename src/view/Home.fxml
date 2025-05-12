@@ -37,10 +37,10 @@
         <columns>
           <TableColumn fx:id="columnId" prefWidth="60.0" text="Id" />
           <TableColumn fx:id="columnName" prefWidth="245.0" text="Nome" />
-            <TableColumn fx:id="columnCategory" prefWidth="225.0" text="Categoria" />
-            <TableColumn fx:id="columnBtView" editable="false" maxWidth="40.0" minWidth="40.0" prefWidth="40.0" resizable="false" />
-            <TableColumn fx:id="columnBtDownload" maxWidth="40.0" minWidth="40.0" prefWidth="40.0" />
-            <TableColumn fx:id="columnBtRemover" maxWidth="40.0" minWidth="40.0" prefWidth="40.0" resizable="false" />
+            <TableColumn fx:id="columnCategory" prefWidth="213.0" text="Categoria" />
+            <TableColumn fx:id="columnBtView" editable="false" maxWidth="42.0" minWidth="40.0" prefWidth="42.0" resizable="false" />
+            <TableColumn fx:id="columnBtDownload" maxWidth="42.0" minWidth="40.0" prefWidth="42.0" />
+            <TableColumn fx:id="columnBtRemover" maxWidth="42.0" minWidth="40.0" prefWidth="42.0" resizable="false" />
         </columns>
       </TableView>
       <HBox alignment="CENTER" layoutX="15.0" layoutY="204.0" prefHeight="50.0" prefWidth="670.0">

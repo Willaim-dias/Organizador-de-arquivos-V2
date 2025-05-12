@@ -43,9 +43,8 @@ public class PdfTools {
             document.close();
             return image;
         } catch (IOException e) {
-            System.out.println("Erro ao renderizar PDF: " + e);
+            throw new RuntimeException("Erro ao carregar a pagina.");
         }
-        return null;
     }
 
     public static int getPageCounter(File file) {
